@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <base href="">
+    <meta charset="utf-8" />
+    <title> Meekin | Browser Extension </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!--begin::Fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <link href="assets/css/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.css" rel="stylesheet" type="text/css" />
+    <!--end::Global Theme Styles-->
+    <link rel="shortcut icon" href="assets/media/favicon.ico" />
+</head>
+<body id="kt_body">
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-fluid">
+            <!--begin::Header-->
+            <div class="d-flex flex-row align-items-center justify-content-center text-center mt-5 mb-3">
+                <div class="">
+                    <a class="" aria-label="IHRL">
+                        <img src="assets/media/logo.svg" alt="Logo" class="img-fluid h-60px" />
+                    </a>
+                </div>
+                <div class="w-30 text-left">
+                    <h2 class="font-weight-bold text-primary">IHRL platform.</h2>
+                    <h5 class="text-black-50 my-n2 font-size-1 text-cap">
+                        Browser extension
+                    </h5>
+                </div>
+            </div>
+            <!--end::Header-->
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--begin::Card-->
+                    <div class="card card-custom rounded-lg">
+                        <div class="card-header">
+                            <h3 class="card-title">Sending report form</h3>
+                        </div>
+                        <!--begin::Form-->
+                        <form class="form" id="ReportForm" method="post">
+                            <input type="hidden" id="OrganizationId" name="OrganizationId" />
+                            <input type="hidden" id="UserId" name="UserId" />
+
+                            <div class="card-body">
+                                <div class="mx-3">
+                                    <div class="form-group row">
+                                        <label class="col-form-label text-right col-lg-3 col-sm-12" for="Link">URL</label>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <input class="form-control" type="text" id="Link" name="Link" onkeyup="keyupEvent(this)" />
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label text-right col-lg-3 col-sm-12" for="customFile">Upload Attachement</label>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <div class="custom-file">
+                                                <input type="file" id="customFile" class="input-file-attach custom-file-input">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <span class="form-text text-danger" id="inputfileMaxError" hidden>Max file size is 50 MB.</span>
+                                            </div>
+
+                                            <div class="mt-0">
+                                                <div class="col-md-12" hidden id="showfilename">
+                                                    <div id="loader-upload"></div>
+                                                    <div id="filenames" class="text-primary mt-1">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <div class="text-right col-lg-3 col-sm-12">
+                                            <label class="col-form-label text-dark" for="Problem">Problem </label>
+                                            <br />
+                                            <span class="text-muted">Tell us what's happing</span>
+                                        </div>
+                                        <div class="col-md-9 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Analysis / Background Info" name="Problem" value="Analysis / Background Info" required>
+                                                            <span></span>Analysis / Background Info
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Edge Case" name="Problem" value="Edge Case" required>
+                                                            <span></span>Edge Case
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Dangerous Speech" name="Problem" value="Dangerous Speech" required>
+                                                            <span></span>Dangerous Speech
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Threats of Violence" name="Problem" value="Threats of Violence">
+                                                            <span></span>Threats of Violence
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="False News" name="Problem" value="False News">
+                                                            <span></span>False News
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Compromised Account" name="Problem" value="Compromised Account">
+                                                            <span></span>Compromised Account
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" id="OtherThreats" name="Problem" value="Other Threats">
+                                                            <span></span>Other Threats
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Other threats -->
+                                            <div class="mt-1" id="otherthreats" hidden>
+                                                <label class="text-dark text-capitalize">Others</label>
+                                                <div class="row mt-1 mx-3">
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Intellectual Property" name="Problem" value="Intellectual Property">
+                                                                <span></span>Intellectual Property
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Child Abuse" name="Problem" value="Child Abuse">
+                                                                <span></span>Child Abuse
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Hate Speech" name="Problem" value="Hate Speech">
+                                                                <span></span>Hate Speech
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Harassment" name="Problem" value="Harassment">
+                                                                <span></span>Harassment
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Fraud or Scam" name="Problem" value="Fraud or Scam">
+                                                                <span></span>Fraud or Scam
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Animal Abuse" name="Problem" value="Animal Abuse">
+                                                                <span></span>Animal Abuse
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Promotion Drug Use" name="Problem" value="Promotion Drug Use">
+                                                                <span></span>Promotion Drug Use
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Unauthorized Sales" name="Problem" value="Unauthorized Sales">
+                                                                <span></span>Unauthorized Sales
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Mocking Victims" name="Problem" value="Mocking Victims">
+                                                                <span></span>Mocking Victims
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Sexual Activity" name="Problem" value="Sexual Activity">
+                                                                <span></span>Sexual Activity
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Violence" name="Problem" value="Violence">
+                                                                <span></span>Violence
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Bullying" name="Problem" value="Bullying">
+                                                                <span></span>Bullying
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Suicide or Self-Injury" name="Problem" value="Suicide or Self-Injury">
+                                                                <span></span>Suicide or Self-Injury
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Sexual Exploitation" name="Problem" value="Sexual Exploitation">
+                                                                <span></span>Sexual Exploitation
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Sharing Private Images" name="Problem" value="Sharing Private Images">
+                                                                <span></span>Sharing Private Images
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="Non-Consensual Intimate Images" name="Problem" value="Non-Consensual Intimate Images">
+                                                                <span></span>Non-Consensual Intimate Images
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <div class="text-right col-lg-3 col-sm-12">
+                                            <label class="col-form-label text-dark">Words</label>
+                                            <br />
+                                            <span class="text-muted">Copy and Paste words from the content you find harmful here.</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <input type="text" id="WordsTagInput" class="form-control tagify" placeholder="Add Words" />
+                                            <input type="hidden" id="Words" name="Words" />
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <div class="text-right col-lg-3 col-sm-12">
+                                            <label class="col-form-label text-dark">Speaker</label>
+                                            <br />
+                                            <span class="text-muted">Please describe which kind of speaker</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-2 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Politician" name="Speaker" value="Politician" required>
+                                                            <span></span>Politician
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Company/organization" name="Speaker" value="Company/organization">
+                                                            <span></span>Company/organization
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Private person" name="Speaker" value="Private person">
+                                                            <span></span>Private person
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Other" name="Speaker" value="Other">
+                                                            <span></span>Other
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Other public figure (e.g. celebrity, famous person)" name="Speaker" value="Other public figure (e.g. celebrity, famous person)">
+                                                            <span></span>Other public figure (e.g. celebrity, famous person)
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <div class="col-lg-6 mb-2">
+                                            <div class="bg-light-info rounded-lg mr-3 p-sm-4">
+                                                <label class="p-2 text-dark">Country</label>
+                                                <div class="row mt-1 mx-3">
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="cMyanmar" name="Country" value="Myanmar" required>
+                                                                <span></span>Myanmar
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="cUS" name="Country" value="US">
+                                                                <span></span>US
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="cIndia" name="Country" value="India">
+                                                                <span></span>India
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="cOther" name="Country" value="Other">
+                                                                <span></span>Other
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="bg-light-info rounded-lg mr-3 p-sm-4">
+                                                <label class="p-2 text-dark">Language</label>
+                                                <div class="row mt-1 mx-3">
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="lanMyanmar" name="Language" value="Myanmar" required>
+                                                                <span></span>Myanmar
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="lanEnglish" name="Language" value="English">
+                                                                <span></span>English
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="lanIndia" name="Language" value="India">
+                                                                <span></span>India
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-5 bg-white px-2 py-1 rounded-lg mr-3 mb-8">
+                                                        <div class="radio-inline">
+                                                            <label class="radio radio-outline radio-outline-2x radio-info">
+                                                                <input type="radio" class="radioInputElements" id="lanOther" name="Language" value="Other">
+                                                                <span></span>Other
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <div class="text-right col-lg-3 col-sm-12">
+                                            <label class="col-form-label text-dark mt-n5">Account Type</label>
+                                            <br />
+                                            <span class="text-muted">Please choose the account type</span>
+                                        </div>
+                                        <div class="col-md-9 col-sm-12">
+                                            <div class="row">
+                                                <div class="col-lg-2 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Public group" name="AccountType" value="Public group" required>
+                                                            <span></span>Public group
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Private group" name="AccountType" value="Private group">
+                                                            <span></span>Private group
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Page" name="AccountType" value="Page">
+                                                            <span></span>Page
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 bg-light-info px-2 py-1 rounded-lg mr-3 mb-8">
+                                                    <div class="radio-inline">
+                                                        <label class="radio radio-outline radio-outline-2x radio-info">
+                                                            <input type="radio" class="radioInputElements" id="Personal Account" name="AccountType" value="Personal Account">
+                                                            <span></span>Personal Account
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label text-right col-lg-3 col-sm-12" for="Subject">Provide analysis</label>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <textarea class="form-control" id="Subject" name="Subject" type="text" rows="2" onkeyup="keyupEvent(this)"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label text-right col-lg-3 col-sm-12" for="SummaryAnalysis">Summary Headline of Analysis</label>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <textarea class="form-control" id="SummaryAnalysis" name="SummaryAnalysis" type="text" rows="2" onkeyup="keyupEvent(this)"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <div class="text-right col-lg-3 col-sm-12">
+                                            <label class="col-form-label text-dark">Dictionary Words</label>
+                                            <br />
+                                            <span class="text-muted">Copy and Paste words from the content you find harmful here.</span>
+                                        </div>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <input type="text" id="DictionaryWordsTagInput" class="form-control tagify" placeholder="Add Words" />
+                                            <input type="hidden" id="DictionaryKeyword" name="DictionaryKeyword" />
+                                        </div>
+                                    </div>
+                                    <div class="separator separator-dashed my-10"></div>
+
+                                    <div class="form-group row">
+                                        <label class="col-form-label text-right col-lg-3 col-sm-12" for="PostContent">Post Content</label>
+                                        <div class="col-lg-6 col-md-9 col-sm-12">
+                                            <textarea class="form-control" id="PostContent" name="PostContent" type="text" rows="2" onkeyup="keyupEvent(this)"></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="row">
+                                    <div class="col-lg-4 ml-lg-auto">
+                                        <button type="submit" class="sub-btn btn btn-block btn-info">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Card-->
+                </div>
+            </div>
+        </div>
+        <!--end::Container-->
+    </div>
+    <!--end::Entry-->
+    <!--begin::Popup Claim-->
+    <div class="modal fade" id="ClaimModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Signin</h5>
+                </div>
+                <div id="formModalformClaim" class="modal-body">
+                    <form method="post" id="claimLoginForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="Email">Email address</label>
+                            <input type="email" class="form-control" placeholder="Enter email" required id="Email" name="Email" value="" />
+                            <span id="EmailError" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="PasswordHash">Password</label>
+                            <input type="password" class="form-control" placeholder="Password" required id="PasswordHash" name="PasswordHash" />
+                            <span id="PasswordHashError" class="text-danger"></span>
+                        </div>
+                    
+                        <div class="form-group" id="notauthenticate">
+                    
+                        </div>
+                    
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-sm btn-info font-weight-bold btn-pill" id="loginbtn">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::Popup Claim-->
+    <!--begin::Global Config(global config for global JS scripts)-->
+    <script>var HOST_URL = "https://meekin.org/BrowserExtension";</script>
+    <!-- <script>var HOST_URL = "https://localhost:44349/BrowserExtension";</script> -->
+    <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1400 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#3699FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#E4E6EF", "dark": "#181C32" }, "light": { "white": "#ffffff", "primary": "#E1F0FF", "secondary": "#EBEDF3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#3F4254", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#EBEDF3", "gray-300": "#E4E6EF", "gray-400": "#D1D3E0", "gray-500": "#B5B5C3", "gray-600": "#7E8299", "gray-700": "#5E6278", "gray-800": "#3F4254", "gray-900": "#181C32" } }, "font-family": "Poppins" };</script>
+    <!--end::Global Config-->
+    <script src="assets/js/plugins.bundle.js"></script>
+    <script src="assets/js//prismjs.bundle.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>
+    <!--end::Global Theme Bundle-->
+    <script src="assets/js/sweetalert2.js"></script>
+    <script src="index.js"></script>
+
+</body>
+</html>
+
