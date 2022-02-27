@@ -115,6 +115,19 @@ function wordsTaginput(tagInput, id) {
         //console.log(e.detail)
     });
 
+    tagify.on('remove', function (e) {
+        let id_tag = tagify.DOM.originalInput.id;
+        let afterRemovetagVal = tagify.value.map(({ value }) => value).toString();
+        if (id_tag == 'DictionaryWordsTagInput') {
+            // Set to Cookie
+            createFormElementObj('DictionaryKeyword', afterRemovetagVal);
+        }
+        else {
+            // Set to Cookie
+            createFormElementObj('Words', afterRemovetagVal);
+        }
+    });
+
     tagify.on('invalid', function (e) {
         //console.log(e, e.detail);
     });
@@ -353,16 +366,16 @@ function createFormElementObj(_key, _val) {
     let formElemetObj = JSON.stringify({
         Link: (getformElemetObj.Link == undefined || getformElemetObj.Link == '') ? Link : getformElemetObj.Link == Link ? getformElemetObj.Link : Link,
         Problem: (getformElemetObj.Problem == undefined || getformElemetObj.Problem == '') ? Problem : getformElemetObj.Problem == Problem ? getformElemetObj.Problem : Problem,
-        /*Words: (getformElemetObj.Words == undefined || getformElemetObj.Words == '') ? Words : getformElemetObj.Words,*/
-        Words: Words,
+        Words: (getformElemetObj.Words == undefined || getformElemetObj.Words == '') ? Words : getformElemetObj.Words == Words ? getformElemetObj.Words : Words,
+        /*Words: Words,*/
         Speaker: (getformElemetObj.Speaker == undefined || getformElemetObj.Speaker == '') ? Speaker : getformElemetObj.Speaker == Speaker ? getformElemetObj.Speaker : Speaker,
         Country: (getformElemetObj.Country == undefined || getformElemetObj.Country == '') ? Country : getformElemetObj.Country == Country ? getformElemetObj.Country : Country,
         Language: (getformElemetObj.Language == undefined || getformElemetObj.Language == '') ? Language : getformElemetObj.Language == Language ? getformElemetObj.Language : Language,
         AccountType: (getformElemetObj.AccountType == undefined || getformElemetObj.AccountType == '') ? AccountType : getformElemetObj.AccountType == AccountType ? getformElemetObj.AccountType : AccountType,
         Subject: (getformElemetObj.Subject == undefined || getformElemetObj.Subject == '') ? Subject : getformElemetObj.Subject == Subject ? getformElemetObj.Subject : Subject,
         SummaryAnalysis: (getformElemetObj.SummaryAnalysis == undefined || getformElemetObj.SummaryAnalysis == '') ? SummaryAnalysis : getformElemetObj.SummaryAnalysis == SummaryAnalysis ? getformElemetObj.SummaryAnalysis : SummaryAnalysis,
-        /*DictionaryKeyword: (getformElemetObj.DictionaryKeyword == undefined || getformElemetObj.DictionaryKeyword == '') ? DictionaryKeyword : getformElemetObj.DictionaryKeyword,*/
-        DictionaryKeyword: DictionaryKeyword,
+        DictionaryKeyword: (getformElemetObj.DictionaryKeyword == undefined || getformElemetObj.DictionaryKeyword == '') ? DictionaryKeyword : getformElemetObj.DictionaryKeyword == DictionaryKeyword ? getformElemetObj.DictionaryKeyword : DictionaryKeyword,
+        /*DictionaryKeyword: DictionaryKeyword,*/
         PostContent: (getformElemetObj.PostContent == undefined || getformElemetObj.PostContent == '') ? PostContent : getformElemetObj.PostContent == PostContent ? getformElemetObj.PostContent : PostContent
     });
 
