@@ -404,7 +404,18 @@ function fillFormElement() {
             var thisElemet = $(this).val();
 
             if (thisElemet == formEleObjData.Problem) {
+                // Problem radio has other Threats
                 $(this).prop("checked", true);
+
+                if (thisElemet == "Other Threats" || (thisElemet != "Analysis / Background Info" && thisElemet != "Edge Case"
+                    && thisElemet != "Dangerous Speech" && thisElemet != "Threats of Violence"
+                    && thisElemet != "False News" && thisElemet != "Compromised Account"))
+                {
+                    $("#otherthreats").removeAttr("hidden");
+                }
+                else {
+                    $("#otherthreats").attr("hidden", true);
+                }
             }
             if (thisElemet == formEleObjData.Speaker) {
                 $(this).prop("checked", true);
